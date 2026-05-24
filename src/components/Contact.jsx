@@ -1,4 +1,4 @@
- import React, { useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import emailjs from "@emailjs/browser";
 
@@ -8,6 +8,8 @@ import { SectionWrapper } from "../hoc";
 import { slideIn } from "../utils/motion";
 import { MdEmail } from "react-icons/md";
 import { BsWhatsapp } from "react-icons/bs";
+import CTAButton from "./CTAButton";
+import { WHATSAPP_URL_PROJECT } from "../constants/whatsapp";
 import "./Contact.scss";
 
 const Contact = () => {
@@ -77,13 +79,20 @@ const Contact = () => {
         <EarthCanvas />
       </motion.div>
 
-      <motion.div 
-        whileInView={{ opacity: 1, transform: 'none' }}
+      <motion.div
         variants={slideIn("right", "tween", 0.2, 1)}
         className='flex-[0.75] bg-black-100 p-8 rounded-2xl'
       >
         <p className={styles.sectionSubText}>Ponte en contacto</p>
         <h3 className={styles.sectionHeadText}>Contacto</h3>
+        <p className="mt-3 text-secondary text-sm">
+          Cuéntame sobre tu negocio y te respondo lo antes posible.
+        </p>
+        <div className="mt-5 flex flex-wrap gap-3">
+          <CTAButton href={WHATSAPP_URL_PROJECT} variant="whatsapp">
+            Hablemos por WhatsApp
+          </CTAButton>
+        </div>
 
         <form
           ref={formRef}
@@ -129,9 +138,9 @@ const Contact = () => {
 
           <button
             type='submit'
-            className='bg-tertiary py-3 px-5 rounded-xl outline-none w-fit text-white font-bold shadow-md shadow-primary'
+            className='bg-gradient-to-r from-[#03C4EB] to-[#2f80ed] py-3 px-8 rounded-full outline-none w-fit text-white font-bold shadow-lg shadow-[#03C4EB]/20 hover:shadow-[#03C4EB]/40 transition-all duration-300 hover:scale-[1.02]'
           >
-            {loading ? "Sending..." : "Enviar"}
+            {loading ? "Enviando..." : "Enviar mensaje"}
           </button>
         </form>
 

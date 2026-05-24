@@ -3,9 +3,12 @@ import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Preload, useGLTF } from "@react-three/drei";
 
 import CanvasLoader from "../Loader";
+import { publicAsset } from "../../utils/publicAsset";
+
+const PLANET_PATH = publicAsset("planet/scene.gltf");
 
 const Earth = () => {
-  const earth = useGLTF("./planet/scene.gltf");
+  const earth = useGLTF(PLANET_PATH);
 
   return (
     <primitive object={earth.scene} scale={2} position-y={0} rotation-y={0} />
@@ -40,5 +43,7 @@ const EarthCanvas = () => {
     </Canvas>
   );
 };
+
+useGLTF.preload(PLANET_PATH);
 
 export default EarthCanvas;

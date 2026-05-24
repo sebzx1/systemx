@@ -9,13 +9,31 @@ import { AiOutlineFacebook } from 'react-icons/ai';
 import {aarti} from "../assets";
 import "./Hero.scss";
 
-const Hero = () => {
+// Evita doble init con React 18 StrictMode (letras duplicadas)
+let heroItypedStarted = false;
 
-  const textRef=useRef();
-  useEffect(()=>
-  {
-    init(textRef.current, { showCursor: true, strings: [' Desarrollador Web ', "Tecnico Sistema ", " Aprendiz ", "Desarrollador Software "] })
-  },[]);
+const TYPING_STRINGS = [
+  "Soluciones Digitales ",
+  "Desarrollo web ",
+  "Automatización con IA ",
+  "Presencia Digital ",
+];
+
+const Hero = () => {
+  const textRef = useRef(null);
+
+  useEffect(() => {
+    const el = textRef.current;
+    if (!el || heroItypedStarted) return;
+
+    heroItypedStarted = true;
+    el.textContent = "";
+
+    init(el, {
+      showCursor: true,
+      strings: TYPING_STRINGS,
+    });
+  }, []);
 
   return (
     <section className={`relative w-full h-screen mx-auto`}>

@@ -8,6 +8,12 @@ import web from "./web.png";
 import github from "./github.png";
 import demo from "./demo.png"
 
+// Logos de habilidades: añade PNG/SVG en src/assets/tech/ y expórtalos aquí.
+// Recomendado: 256×256 px o 512×512 px, fondo transparente (PNG) o SVG.
+// import rails from "./tech/rails.png";
+// import python from "./tech/python.png";
+// import vercel from "./tech/vercel.png";
+
 import css from "./tech/css.png";
 import git from "./tech/git.png";
 import html from "./tech/html.png";
@@ -16,7 +22,7 @@ import mongodb from "./tech/mongodb.png";
 import nodejs from "./tech/nodejs.png";
 import reactjs from "./tech/reactjs.png";
 import tailwind from "./tech/tailwind.png";
-import threejs from "./tech/threejs.svg";
+import threejs from "./tech/threejs.png";
 
 import holopin from "./holopin.png";
 import hf from "./hf.svg";

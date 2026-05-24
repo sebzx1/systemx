@@ -1,5 +1,6 @@
 import {
     javascript,html,css,reactjs,tailwind,nodejs,mongodb,git,threejs,
+    backend,mobile,web,creator,
     hf,bny,holopin,
     clg,school,
     crypto,oop,yml,crud,dwld,onetomany,
@@ -37,65 +38,85 @@ import {
 
   const achievements = [
     {
-      title: "¡Te invitamos a seguir nuestra web! Mantente al día con nuestras últimas novedades y contenido exclusivo.",
+      title: "Consulta gratuita para entender las necesidades de tu negocio.",
     },
     {
-      title: "Únete a nuestra comunidad. Al seguirnos, formarás parte de un grupo apasionado que comparte tus intereses.",
+      title: "Propuestas claras, sin tecnicismos innecesarios.",
     },
     {
-      title: "Sé el primero en conocer nuestras ofertas. No te pierdas promociones especiales solo para nuestros seguidores.",
+      title: "Soluciones a medida: desde landing hasta sistemas completos.",
     },
     {
-      title: "Recibe contenido útil y exclusivo. Accede a artículos, guías y recursos que no encontrarás en ningún otro lugar.",
+      title: "Acompañamiento durante todo el proceso de desarrollo.",
     },
     {
-      title: "Conéctate con nosotros. Tu opinión es importante; seguirnos te permite interactuar y dar feedback.",
+      title: "Integración con WhatsApp para que tus clientes te contacten fácil.",
     },
     {
-      title: "Inspírate con nuestras publicaciones. Descubre ideas y consejos que te motivarán en tu día a día.",
+      title: "Diseño moderno que transmite profesionalismo y confianza.",
+    },
+  ];
+
+  const impactQuotes = [
+    "Tu negocio también merece verse profesional.",
+    "Automatiza procesos y ahorra tiempo.",
+    "La presencia digital ya no es opcional.",
+    "Soluciones modernas para negocios modernos.",
+  ];
+
+  const businessProblems = [
+    {
+      problem: "Sin presencia digital",
+      description: "Tu negocio no aparece donde tus clientes buscan.",
+      solution: "Creo sitios web y landing pages que te posicionan en internet con una imagen profesional.",
+      icon: "🌐",
     },
     {
-      title: "Forma parte de nuestra historia. Al seguirnos, contribuyes a nuestro crecimiento y evolución como comunidad.",
+      problem: "Clientes sin información",
+      description: "Te escriben preguntando lo mismo una y otra vez.",
+      solution: "Organizo tu información, horarios y servicios para que todo esté claro y accesible.",
+      icon: "📋",
     },
-  ]
+    {
+      problem: "Mala imagen en internet",
+      description: "Tu marca no transmite confianza ni modernidad.",
+      solution: "Diseño experiencias digitales elegantes que reflejan la calidad de tu negocio.",
+      icon: "✨",
+    },
+    {
+      problem: "Procesos manuales",
+      description: "Pierdes horas en tareas repetitivas cada semana.",
+      solution: "Automatizo formularios, respuestas y flujos para que ahorres tiempo valioso.",
+      icon: "⚙️",
+    },
+    {
+      problem: "Falta de automatización",
+      description: "No aprovechas herramientas que simplifican tu operación.",
+      solution: "Integro IA y bots inteligentes para atención, captación y seguimiento automático.",
+      icon: "🤖",
+    },
+    {
+      problem: "Poco alcance digital",
+      description: "Compites con negocios que sí están visibles online.",
+      solution: "Impulso tu presencia con estrategia digital, contacto directo y sistemas modernos.",
+      icon: "📈",
+    },
+  ];
   
   const technologies = [
-    {
-      name: "HTML 5",
-      icon: html,
-    },
-    {
-      name: "CSS 3",
-      icon: css,
-    },
-    {
-      name: "JavaScript",
-      icon: javascript,
-    },
-    {
-      name:"Bootstrap",
-      icon: "https://img.icons8.com/color/480/000000/bootstrap.png",
-    },
-    {
-      name: "React JS",
-      icon: reactjs,
-    },
-    {
-      name: "Node JS",
-      icon: nodejs,
-    },
-    {
-      name: "MongoDB",
-      icon: mongodb,
-    },
-    {
-      name: "git",
-      icon: git,
-    },
-    {
-      name:"MySql",
-      icon: "https://img.icons8.com/color/480/000000/mysql-logo.png",
-    },
+    { name: "React", icon: reactjs },
+    { name: "JavaScript", icon: javascript },
+    { name: "Tailwind CSS", icon: tailwind },
+    { name: "Ruby on Rails", icon: backend },
+    { name: "Python", icon: creator },
+    { name: "HTML 5", icon: html },
+    { name: "CSS 3", icon: css },
+    { name: "APIs REST", icon: nodejs },
+    { name: "Git / GitHub", icon: git },
+    { name: "Vercel", icon: web },
+    { name: "Backend", icon: backend },
+    { name: "IA & Automatización", icon: threejs },
+    { name: "Responsive Design", icon: mobile },
   ];
 
   const list = [
@@ -528,78 +549,45 @@ import {
     
   ];
   
-  const experiences = [
+  const services = [
     {
-      title: "Servicio Tecnico",
-      company_name: "technical service",
-      icon: bny,
-      iconBg: "#383E56",
-      date: "sep 2024 - Presente",
-      link: "",
+      title: "Desarrollo Web Profesional",
+      subtitle: "Sitios que convierten visitantes en clientes",
+      icon: web,
+      accent: "#03C4EB",
       points: [
-        "Ofrecemos soporte técnico especializado para asegurar el óptimo funcionamiento de tus sistemas, solucionando problemas rápidamente y manteniendo tu infraestructura tecnológica eficiente, actualizada, segura y libre de errores, garantizando así la continuidad operativa.",
+        "Landing pages optimizadas para conversión",
+        "Sitios empresariales y catálogos digitales",
+        "Sistemas web personalizados a medida",
+        "Diseño responsive y optimización móvil",
+        "Experiencia de usuario moderna y elegante",
       ],
-      link: "https://es.wikipedia.org/wiki/Soporte_t%C3%A9cnico",
     },
     {
-      title: "Desarrollo Web",
-      company_name: "web development",
-      icon: "https://img.icons8.com/?size=100&id=12447&format=png&color=000000",
-      iconBg: "#383E56",
-      date: "sep 2024 - Presente",
-      link: "",
+      title: "Automatizaciones con IA",
+      subtitle: "Menos tareas repetitivas, más tiempo para crecer",
+      icon: threejs,
+      accent: "#804dee",
       points: [
-        "Creamos sitios web atractivos y funcionales, diseñados a medida para reflejar tu marca y ofrecer una experiencia de usuario excepcional, asegurando una presencia online impactante, moderna, accesible y fácil de navegar para todos los usuarios."
+        "Automatización de procesos empresariales",
+        "Bots inteligentes y formularios automatizados",
+        "Integraciones con herramientas de IA",
+        "Atención automática y seguimiento de leads",
+        "Optimización de tareas repetitivas del día a día",
       ],
-      link: "https://es.wikipedia.org/wiki/Desarrollo_web",
     },
     {
-      title: "Marketing Digital",
-      company_name: "digital marketing",
-      icon: "https://img.icons8.com/?size=100&id=oNTEU8sbVPVY&format=png&color=000000",
-      iconBg: "#E6DEDD",
-      date: "sep 2024 - Presente",
-      link: "",
+      title: "Presencia Digital para Negocios",
+      subtitle: "Tu marca merece verse profesional en internet",
+      icon: mobile,
+      accent: "#00cea8",
       points: [
-        "Diseñamos estrategias de marketing personalizadas para aumentar tu visibilidad en línea, mejorar el compromiso con tu audiencia y aumentar el retorno de la inversión, utilizando las últimas herramientas y técnicas digitales efectivas.",
+        "Imagen digital profesional y confiable",
+        "Más visibilidad para conseguir clientes",
+        "Contacto directo integrado con WhatsApp",
+        "Presencia moderna que destaca frente a la competencia",
+        "Estrategia digital enfocada en resultados reales",
       ],
-      link: "https://es.wikipedia.org/wiki/Mercadeo_digital",
-    },
-    {
-      title: "Optimizacion de PC",
-      company_name: "pc optimization",
-      icon: "https://img.icons8.com/?size=100&id=095b6dZPAc1F&format=png&color=000000",
-      iconBg: "#383E56",
-      date: "sep 2024 - Presente",
-      link: "",
-      points: [
-        "Maximizamos el rendimiento de tu computadora, eliminando archivos innecesarios, optimizando la configuración del sistema y protegiendo tu dispositivo contra amenazas de seguridad, para garantizar una experiencia de usuario fluida, segura y altamente eficiente.",
-      ],
-      link: "https://support.microsoft.com/es-es/windows/formas-de-mejorar-el-rendimiento-del-equipo-c6018c78-0edd-a71a-7040-02267d68ea90",
-    },
-    {
-      title: "Mantenimineto",
-      company_name: "Maintenance",
-      icon: "https://img.icons8.com/?size=100&id=11151&format=png&color=000000",
-      iconBg: "#E6DEDD",
-      date: "sep 2024 - Presente",
-      link: "",
-      points: [
-        "Ofrecemos soluciones integrales de soporte y mantenimiento técnico para asegurar que tus sistemas funcionen sin interrupciones, realizando revisiones periódicas, actualizaciones esenciales y optimizaciones que mejoran la productividad y la seguridad de tu infraestructura tecnológica."
-      ],
-      link: "https://support.microsoft.com/es-es/windows/sugerencias-para-mejorar-el-rendimiento-del-pc-en-windows-b3b3ef5b-5953-fb6a-2528-4bbed82fba96",
-    },
-    {
-      title: "Windows/Office",
-      company_name: "Windows/Office",
-      icon: "https://img.icons8.com/?size=100&id=tpIcYSg4KMn0&format=png&color=000000",
-      iconBg: "#E6DEDD",
-      date: "sep 2024 - Presente",
-      link: "",
-      points: [
-        "Nos encargamos de activar licencias legítimas de Windows y Office, asegurando que tu software esté debidamente licenciado y funcione sin problemas, garantizando así la seguridad y la legalidad de tus sistemas informáticos."
-      ],
-      link: "https://support.microsoft.com/es-es/office/novedades-de-office-2024-y-office-ltsc-2024-baadecbe-a8fc-4435-8cb8-70e93fd08b56",
     },
   ];
   
@@ -636,4 +624,13 @@ import {
     },
   ];
   
-  export { list, profiles, technologies, experiences, educations, achievements };
+  export {
+    list,
+    profiles,
+    technologies,
+    services,
+    educations,
+    achievements,
+    businessProblems,
+    impactQuotes,
+  };

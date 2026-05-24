@@ -1,25 +1,23 @@
 @import "../global.scss";
 
-.footer{
-    position: relative;
-    bottom: 2rem;
-    padding-bottom: 4rem;
+.footer {
+  position: relative;
+  background: linear-gradient(180deg, transparent 0%, #090325 100%);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
 
-    @include mobile
-    {
-        font-size: 12px;
-    }
+  &__inner {
+    padding-bottom: 2rem;
+  }
 
-    p 
-    {
-      a, h1
-      {
-        text-decoration: none;
-        color: rgb(110, 110, 240);
+  &__bottom {
+    p a {
+      text-decoration: none;
+      color: rgb(110, 110, 240);
+      transition: color 0.2s;
+
+      &:hover {
+        color: #03c4eb;
       }
     }
-    .visitcounter
-    {
-      display: inline;
-    }
+  }
 }
