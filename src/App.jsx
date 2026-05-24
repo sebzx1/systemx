@@ -16,10 +16,15 @@ import {
   WhatsAppFloat,
 } from "./components";
 
+const routerBasename =
+  import.meta.env.BASE_URL === "/"
+    ? undefined
+    : import.meta.env.BASE_URL.replace(/\/$/, "");
+
 const App = () => {
   return (
     <div>
-      <BrowserRouter>
+      <BrowserRouter basename={routerBasename}>
         <div className="relative z-0 bg-primary">
           <div className="bg-hero-pattern bg-cover bg-no-repeat bg-center">
             <Navbar />

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import emailjs from "@emailjs/browser";
 
@@ -10,61 +10,106 @@ import { MdEmail } from "react-icons/md";
 import { BsWhatsapp } from "react-icons/bs";
 import CTAButton from "./CTAButton";
 import { WHATSAPP_URL_PROJECT } from "../constants/whatsapp";
+import { emailJsConfig, isEmailJsConfigured } from "../config/emailjs";
 import "./Contact.scss";
 
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 const Contact = () => {
-  const formRef = useRef();
+  const formRef = useRef(null);
   const [form, setForm] = useState({
     name: "",
     email: "",
     message: "",
   });
-
   const [loading, setLoading] = useState(false);
+  const [feedback, setFeedback] = useState(null);
+
+  useEffect(() => {
+    if (isEmailJsConfigured()) {
+      emailjs.init(emailJsConfig.publicKey);
+    }
+  }, []);
 
   const handleChange = (e) => {
-    const { target } = e;
-    const { name, value } = target;
-
-    setForm({
-      ...form,
-      [name]: value,
-    });
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
+    if (feedback) setFeedback(null);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setFeedback(null);
 
-    // Validación de formulario
-    if (!form.name || !form.email || !form.message) {
-      alert("Por favor, completa todos los campos.");
+    const trimmed = {
+      name: form.name.trim(),
+      email: form.email.trim(),
+      message: form.message.trim(),
+    };
+
+    if (!trimmed.name || !trimmed.email || !trimmed.message) {
+      setFeedback({
+        type: "error",
+        text: "Por favor, completa todos los campos.",
+      });
+      return;
+    }
+
+    if (!EMAIL_REGEX.test(trimmed.email)) {
+      setFeedback({
+        type: "error",
+        text: "Introduce un correo electrónico válido.",
+      });
+      return;
+    }
+
+    if (!isEmailJsConfigured()) {
+      setFeedback({
+        type: "error",
+        text: "El formulario aún no está configurado. Usa WhatsApp o correo mientras tanto.",
+      });
       return;
     }
 
     setLoading(true);
 
     try {
-      await emailjs.send(
-        'service_p20a7el',
-        'template_8drkznw',
-        {
-          from_name: form.name,  // Esta variable se usa en la plantilla
-          to_name: "SystemX",    // Esta variable se usa en la plantilla
-          from_email: form.email, // Puedes quitarlo si no es necesario en la plantilla
-          message: form.message,  // Esta variable se usa en la plantilla
-        },
-        'yxUkSHN5OA28tTCpI',
+      const params = {
+        from_name: trimmed.name,
+        user_name: trimmed.name,
+        to_name: "SystemX",
+        from_email: trimmed.email,
+        user_email: trimmed.email,
+        reply_to: trimmed.email,
+        message: trimmed.message,
+      };
+
+      const response = await emailjs.send(
+        emailJsConfig.serviceId,
+        emailJsConfig.templateId,
+        params,
+        emailJsConfig.publicKey
       );
 
-      alert("Gracias. Me comunicaré contigo lo antes posible.");
-      setForm({
-        name: "",
-        email: "",
-        message: "",
+      if (response.status !== 200) {
+        throw new Error(`EmailJS respondió con estado ${response.status}`);
+      }
+
+      setFeedback({
+        type: "success",
+        text: "¡Mensaje enviado! Te responderé lo antes posible.",
       });
+      setForm({ name: "", email: "", message: "" });
     } catch (error) {
-      console.error(error);
-      alert("Algo salió mal. Por favor inténtalo de nuevo.");
+      console.error("Error al enviar formulario:", error);
+      const detail =
+        error?.text ||
+        error?.message ||
+        "Revisa tu conexión o la configuración de EmailJS.";
+      setFeedback({
+        type: "error",
+        text: `No se pudo enviar el mensaje. ${detail}`,
+      });
     } finally {
       setLoading(false);
     }
@@ -74,14 +119,14 @@ const Contact = () => {
     <div className={`xl:mt-12 flex xl:flex-row flex-col gap-10 overflow-hidden`}>
       <motion.div
         variants={slideIn("left", "tween", 0.2, 1)}
-        className='xl:flex-1 xl:h-auto md:h-[550px] h-[350px]'
+        className="xl:flex-1 xl:h-auto md:h-[550px] h-[350px]"
       >
         <EarthCanvas />
       </motion.div>
 
       <motion.div
         variants={slideIn("right", "tween", 0.2, 1)}
-        className='flex-[0.75] bg-black-100 p-8 rounded-2xl'
+        className="flex-[0.75] bg-black-100 p-8 rounded-2xl"
       >
         <p className={styles.sectionSubText}>Ponte en contacto</p>
         <h3 className={styles.sectionHeadText}>Contacto</h3>
@@ -94,51 +139,79 @@ const Contact = () => {
           </CTAButton>
         </div>
 
+        {!isEmailJsConfigured() && (
+          <p className="mt-4 text-amber-400/90 text-sm rounded-lg bg-amber-400/10 px-4 py-3 border border-amber-400/20">
+            Para activar el envío por correo, configura EmailJS en un archivo{" "}
+            <code className="text-amber-200">.env.local</code> (mira{" "}
+            <code className="text-amber-200">.env.example</code> en el proyecto).
+          </p>
+        )}
+
         <form
           ref={formRef}
           onSubmit={handleSubmit}
-          className='mt-3 flex flex-col gap-8'
+          className="mt-3 flex flex-col gap-8"
+          noValidate
         >
-          <label className='flex flex-col' htmlFor='name'>
-            <span className='text-white font-medium mb-3'>Nombre</span>
+          <label className="flex flex-col" htmlFor="name">
+            <span className="text-white font-medium mb-3">Nombre</span>
             <input
-              id='name'
-              type='text'
-              name='name'
+              id="name"
+              type="text"
+              name="name"
               value={form.name}
               onChange={handleChange}
-              placeholder="Cual es tu nombre?"
-              className='bg-tertiary py-3 px-3 placeholder:text-secondary text-white rounded-lg border-none font-medium'
+              placeholder="¿Cuál es tu nombre?"
+              className="bg-tertiary py-3 px-3 placeholder:text-secondary text-white rounded-lg border-none font-medium"
+              disabled={loading}
+              autoComplete="name"
             />
           </label>
-          <label className='flex flex-col' htmlFor='email'>
-            <span className='text-white font-medium mb-3'>Correo Electrónico</span>
+          <label className="flex flex-col" htmlFor="email">
+            <span className="text-white font-medium mb-3">Correo electrónico</span>
             <input
-              id='email'
-              type='email'
-              name='email'
+              id="email"
+              type="email"
+              name="email"
               value={form.email}
               onChange={handleChange}
-              placeholder="Cual es tu correo?"
-              className='bg-tertiary py-3 px-3 placeholder:text-secondary text-white rounded-lg border-none font-medium'
+              placeholder="¿Cuál es tu correo?"
+              className="bg-tertiary py-3 px-3 placeholder:text-secondary text-white rounded-lg border-none font-medium"
+              disabled={loading}
+              autoComplete="email"
             />
           </label>
-          <label className='flex flex-col' htmlFor='message'>
-            <span className='text-white font-medium mb-3'>Mensaje</span>
+          <label className="flex flex-col" htmlFor="message">
+            <span className="text-white font-medium mb-3">Mensaje</span>
             <textarea
-              id='message'
+              id="message"
               rows={7}
-              name='message'
+              name="message"
               value={form.message}
               onChange={handleChange}
-              placeholder='Que quiere escribir?'
-              className='bg-tertiary py-3 px-3 placeholder:text-secondary text-white rounded-lg border-none font-medium'
+              placeholder="¿Qué te gustaría contarme?"
+              className="bg-tertiary py-3 px-3 placeholder:text-secondary text-white rounded-lg border-none font-medium resize-y min-h-[120px]"
+              disabled={loading}
             />
           </label>
 
+          {feedback && (
+            <p
+              role="alert"
+              className={`text-sm rounded-lg px-4 py-3 ${
+                feedback.type === "success"
+                  ? "text-green-300 bg-green-500/10 border border-green-500/30"
+                  : "text-red-300 bg-red-500/10 border border-red-500/30"
+              }`}
+            >
+              {feedback.text}
+            </p>
+          )}
+
           <button
-            type='submit'
-            className='bg-gradient-to-r from-[#03C4EB] to-[#2f80ed] py-3 px-8 rounded-full outline-none w-fit text-white font-bold shadow-lg shadow-[#03C4EB]/20 hover:shadow-[#03C4EB]/40 transition-all duration-300 hover:scale-[1.02]'
+            type="submit"
+            disabled={loading}
+            className="bg-gradient-to-r from-[#03C4EB] to-[#2f80ed] py-3 px-8 rounded-full outline-none w-fit text-white font-bold shadow-lg shadow-[#03C4EB]/20 hover:shadow-[#03C4EB]/40 transition-all duration-300 hover:scale-[1.02] disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:scale-100"
           >
             {loading ? "Enviando..." : "Enviar mensaje"}
           </button>
@@ -147,11 +220,23 @@ const Contact = () => {
         <div className="mt-5 contact__options">
           <article className="contact__option">
             <MdEmail />
-            <a href="mailto:systemx218@gmail.com" target="_blank" rel="noopener noreferrer" className="blue-text-gradient">systemx218@gmail.com</a>
+            <a
+              href="mailto:systemx218@gmail.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="blue-text-gradient"
+            >
+              systemx218@gmail.com
+            </a>
           </article>
           <article className="contact__option">
             <BsWhatsapp />
-            <a href="https://api.whatsapp.com/send/?phone=573004755765&text&type=phone_number&app_absent=0" target="_blank" rel="noopener noreferrer" className="blue-text-gradient">
+            <a
+              href="https://api.whatsapp.com/send/?phone=573004755765&text&type=phone_number&app_absent=0"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="blue-text-gradient"
+            >
               +57 3004755765
             </a>
           </article>
