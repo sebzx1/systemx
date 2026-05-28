@@ -3,9 +3,6 @@ import { styles } from "../styles";
 import { ComputersCanvas } from "./canvas";
 import {init} from 'ityped';
 import React , { useEffect , useRef} from "react";
-import {AiOutlineInstagram} from "react-icons/ai";
-import { AiOutlineWhatsApp } from 'react-icons/ai';
-import { AiOutlineFacebook } from 'react-icons/ai';
 import {aarti} from "../assets";
 import "./Hero.scss";
 
@@ -54,24 +51,6 @@ const Hero = () => {
           <h3>
             <span ref={textRef} className={`${styles.heroSubText} mt-2 green-text-gradient`}></span>
           </h3>
-        
-        {/* cambiar los link */} 
-        <div className="absolute link1">        
-        <a
-          href="https://api.whatsapp.com/send/?phone=573004755765&text&type=phone_number&app_absent=0" target="_blank">
-          <AiOutlineWhatsApp />
-        </a>
-        <a
-          href="https://www.instagram.com/systemx_218?igsh=MW5zM21hZmVrdHVlYg==" target="_blank">
-          <AiOutlineInstagram />
-        </a>
-        <a 
-          href="https://www.facebook.com/people/SystemX/61557114293325/?mibextid=ZbWKwL" target="_blank">
-          <AiOutlineFacebook />
-        </a>
-
-      </div>
-
       </div>
       </div>
       <div className="imgcontainer1 absolute bg-gradient-to-r from-blue-500 to-blue-300">

@@ -75,7 +75,7 @@ const Navbar = () => {
 
       {menuOpen && (
         <div className="md:hidden absolute top-full left-0 w-full bg-primary/98 backdrop-blur-md border-t border-white/5 py-6 px-6">
-          <ul className="flex flex-col gap-4">
+          <ul className="flex flex-col items-center gap-4 text-center">
             {navLinks.map((link) => (
               <li key={link.href}>
                 <a
@@ -87,7 +87,7 @@ const Navbar = () => {
                 </a>
               </li>
             ))}
-            <li className="pt-2">
+            <li className="pt-2 w-full max-w-xs">
               <CTAButton href={WHATSAPP_URL_PROJECT} className="w-full">
                 Hablemos de tu proyecto
               </CTAButton>

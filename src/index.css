@@ -13,6 +13,19 @@
   color-scheme: dark;
 }
 
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+#root {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
 .hash-span {
   margin-top: -100px;
   padding-bottom: 50px;
